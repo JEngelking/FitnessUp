@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/view_data"
+            android:icon="@drawable/ic_view_data"
+            android:title="View my data" />
+        <item
+            android:id="@+id/manage_goals"
+            android:icon="@drawable/ic_view_goal"
+            android:title="Manage my goals" />
+        <item
+            android:id="@+id/new_workout"
+            android:icon="@drawable/ic_new_workout"
+            android:title="Start a new workout" />
+        <item
+            android:id="@+id/resume_workout"
+            android:icon="@drawable/ic_resume_workout"
+            android:title="Resume workout"/>
+
+        <item
+            android:id="@+id/start_exercise"
+            android:icon="@drawable/ic_start_exercise"
+            android:title="Start one exercise" />
+        <item
+            android:id="@+id/resume_exercise"
+            android:icon="@drawable/ic_resume_exercise"
+            android:title="Resume my exercise" />
+    </group>
+</menu>

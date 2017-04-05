@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">Fitness Up</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="pin_label">Enter your pin, this will be stored so you only need to enter once.\nThis will be given to you.</string>
+    <string name="done_label">Done</string>
+    <string name="choose_label_ex">Choose Exercise</string>
+    <string name="choose_label_wk">Choose Workout</string>
+    <string name="choose_label_sup">Choose Support</string>
+    <string name="start_time">0:00</string>
+    <string name="start_label">Start</string>
+    <string name="pause_label">Pause</string>
+    <string name="reset_label">Reset</string>
+    <string name="save_label">Save</string>
+    <string-array name="exercises">
+        <item>1 Cardiovascular exercises  Treadmill walk</item>
+        <item>2 Cardiovascular exercises  Treadmill run</item>
+        <item>3 Cardiovascular exercises  Treadmill walk/run combination</item>
+        <item>4 Cardiovascular exercises  Elliptical</item>
+        <item>5 Cardiovascular exercises  Stationary bike</item>
+        <item>6 Cardiovascular exercises  Rowing machine</item>
+        <item>7 Cardiovascular exercises  Walk outdoors/outdoor track</item>
+        <item>8 Cardiovascular exercises  Run outdoors/outdoor track</item>
+        <item>9 Cardiovascular exercises  Walk/run outdoors/outdoor track combination</item>
+        <item>10 Cardiovascular exercises  Cycling outdoors</item>
+        <item>11 Cardiovascular exercises  Basketball</item>
+        <item>12 Cardiovascular exercises  Football (American)</item>
+        <item>13 Cardiovascular exercises  Soccer</item>
+        <item>14 Cardiovascular exercises  Hockey</item>
+        <item>15 Cardiovascular exercises  Baseball/Softball</item>
+        <item>16 Cardiovascular exercises  Tennis</item>
+        <item>17 Cardiovascular exercises  Table tennis</item>
+        <item>18 Cardiovascular exercises  Swimming</item>
+        <item>19 Cardiovascular exercises  Gardening/Yard work</item>
+        <item>20 Cardiovascular exercises  Group exercise class</item>
+        <item>21 Cardiovascular exercises  Personal Training</item>
+        <item>22 Cardiovascular exercises  Other</item>
+        <item>23 Strength Exercises  Machine</item>
+        <item>24 Strength Exercises  Free weights</item>
+        <item>25 Strength Exercises  Body weight</item>
+        <item>26 Strength Exercises  Combination</item>
+        <item>27 Strength Exercises  Group exercise class</item>
+        <item>28 Strength Exercises  Personal training</item>
+        <item>29 Strength Exercises  Other</item>
+        <item>30 Flexibility and Balance Training  Group exercise class</item>
+        <item>31 Flexibility and Balance Training  Personal training</item>
+        <item>32 Flexibility and Balance Training  Other</item>
+    </string-array>
+    <string-array name="workouttitles">
+        <item>1 Sunrise Stretch </item>
+        <item>2 Evening Yoga</item>
+        <item>3 Deskercise</item>
+        <item>4 Core Strength and Stability</item>
+        <item>5 Upper Body Focus (use hand weights on exercises with a star)</item>
+        <item>6 Lower Body Focus (use hand weights on exercises with star) </item>
+        <item>7 HIT (High Intensity Training) </item>
+    </string-array>
+    <string-array name="support">
+        <item>1 Spouse/Partner</item>
+        <item>2 Sister/Brother</item>
+        <item>3 Friend(s)</item>
+        <item>4 Parent(s)</item>
+        <item>5 other</item>
+    </string-array>
+</resources>
