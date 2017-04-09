@@ -39,7 +39,6 @@ public class ExerciseActivity extends AppCompatActivity implements AdapterView.O
 
         timeTV = (TextView) findViewById(R.id.textViewElapsedTime);
 
-        startBtn.setText("Start");
         //adapter for exercises
         ArrayAdapter<CharSequence> adapterEx =
                 ArrayAdapter.createFromResource(this,R.array.exercises,
