@@ -17,6 +17,7 @@ public class ExerciseActivity extends AppCompatActivity implements AdapterView.O
     private Spinner exSpin;
     Button startBtn;
     Button pauseBtn;
+    Button resetBtn;
     TextView timeTV;
     long startTime = 0L;
 
@@ -34,6 +35,8 @@ public class ExerciseActivity extends AppCompatActivity implements AdapterView.O
         exSpin = (Spinner)findViewById(R.id.spinnerExercise);
         startBtn = (Button) findViewById(R.id.buttonStart);
         pauseBtn = (Button) findViewById(R.id.buttonPause);
+        resetBtn = (Button) findViewById(R.id.buttonReset);
+
         timeTV = (TextView) findViewById(R.id.textViewElapsedTime);
 
         startBtn.setText("Start");
@@ -59,6 +62,20 @@ public class ExerciseActivity extends AppCompatActivity implements AdapterView.O
             {
                 timeSwapBuff += timeInMilliseconds;
                 handler.removeCallbacks(updateTimerThread);
+            }
+        });
+
+        resetBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                handler.removeCallbacks(updateTimerThread);
+                timeTV.setText(R.string.start_time);
+
+                timeSwapBuff = 0L;
+                timeInMilliseconds = 0L;
+                updatedTime = 0L;
             }
         });
     }
