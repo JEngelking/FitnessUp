@@ -17,7 +17,9 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <item name="homeAsUpIndicator">@drawable/ic_drawer</item>
-    <item name="android:homeAsUpIndicator">@drawable/ic_drawer</item>
+    <style name="NavigationDrawerStyle">
+        <item name="homeAsUpIndicator">@drawable/ic_drawer</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_drawer</item>
+    </style>
 
 </resources>
