@@ -77,10 +77,11 @@ public class LoginActivity extends AppCompatActivity
                 {
                     if (pinET.getText().toString().matches(PIN_MATCH))
                     {
-                        SharedPreferences preferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putString("pin", pinET.getText().toString());
                         editor.putString("ver", APP_VERSION);
+                        editor.commit();
 
                         new PerformAsyncTask().execute();
 
