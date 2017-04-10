@@ -16,6 +16,7 @@
     <string name="pause_label">Pause</string>
     <string name="reset_label">Reset</string>
     <string name="save_label">Save</string>
+    <string name="pin_explanation">Please enter your pin. This will be saved so you only need to enter it once.</string>
     <string-array name="exercises">
         <item>1 Cardiovascular exercises  Treadmill walk</item>
         <item>2 Cardiovascular exercises  Treadmill run</item>

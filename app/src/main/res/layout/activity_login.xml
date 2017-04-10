@@ -7,6 +7,34 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.niu.cs.z1754862.fitnessup.LoginActivity">
+    tools:context="edu.niu.cs.z1754862.fitnessup.LoginActivity"
+    android:background="@drawable/splash">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pinEditText"
+        android:background="#FFFFFF"
+        android:height="50dp"
+        android:hint="PIN"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pinExplainTextView"
+        android:text="@string/pin_explanation"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

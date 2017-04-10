@@ -13,11 +13,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Fitness Up"
-        android:id="@+id/textView"
+        android:id="@+id/titleView"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:textColor="#FFFFFF"
-        android:typeface="normal"
         android:textSize="40dp" />
 
 </RelativeLayout>
