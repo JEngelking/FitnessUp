@@ -4,12 +4,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.widget.TextView;
 import android.support.v7.app.ActionBar;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Scanner;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -17,12 +30,15 @@ public class SplashScreen extends AppCompatActivity {
     private final int SPLASH_DISPLAY_LENGTH = 3000;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         ActionBar bar = getSupportActionBar();
-        bar.hide();
-
+        if (bar != null)
+        {
+            bar.hide();
+        }
         titleTV = (TextView) findViewById(R.id.titleView);
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/GeosansLight.ttf");
         titleTV.setTypeface(typeface);
@@ -35,7 +51,7 @@ public class SplashScreen extends AppCompatActivity {
             }
         }, SPLASH_DISPLAY_LENGTH);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         if (preferences.contains("pin"))
         {
@@ -50,8 +66,88 @@ public class SplashScreen extends AppCompatActivity {
         }
     }
 
-    private static String getDefaultSharedPreferencesName(Context context)
+    @Override
+    protected void onResume()
     {
-        return context.getPackageName() + "_preferences";
+        super.onResume();
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        if (preferences.contains("pin"))
+        {
+            new PerformAsyncTask().execute();
+        }
+    }
+
+    private class PerformAsyncTask extends AsyncTask<Void, Void, String>
+    {
+        @Override
+        protected String doInBackground(Void... params)
+        {
+            String response = sendUsage();
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String response)
+        {
+            Toast toast = Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.TOP, 0, 0);
+            toast.show();
+        }
+    }
+
+    public String sendUsage()
+    {
+        HttpURLConnection connection;
+        String response = new String();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String pin;
+        String dt = DateFormat.getDateTimeInstance().format(new Date());
+
+        if (preferences.contains("pin"))
+        {
+            pin = preferences.getString("pin", "def123");
+        }
+
+        else
+        {
+            pin = "def123";
+        }
+
+        try
+        {
+            URL url = new URL("http://students.cs.niu.edu/~exerciseapp/postusagedata.php");
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true);//set http method to post
+            connection.setRequestMethod("POST");//set to post
+            //Encode parameters to be sent
+            String outParms = "pin=" + URLEncoder.encode(pin, "UTF-8") + "&dt=" + URLEncoder.encode(dt, "UTF-8");
+            //Set final connection attributes and create PrintWriter to get response from server
+            connection.setFixedLengthStreamingMode(outParms.getBytes().length);
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            PrintWriter writer = new PrintWriter(connection.getOutputStream());
+            writer.print(outParms);
+            writer.close();
+
+            Scanner inStream = new Scanner(connection.getInputStream());
+
+            while (inStream.hasNextLine())
+            {
+                response += (inStream.nextLine());
+            }
+        }
+
+        catch (UnsupportedEncodingException e)
+        {
+            e.printStackTrace();
+        }
+
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return response;
     }
 }
