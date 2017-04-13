@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ActionBarDrawerToggle toggle;
-    Button startExerciseBtn;
+    Button startExerciseBtn, newWorkoutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,16 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 Intent intent = new Intent(MainActivity.this, ExerciseActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        newWorkoutBtn = (Button)findViewById(R.id.newWorkoutButton);
+        newWorkoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(MainActivity.this, WorkoutActivity.class);
                 startActivity(intent);
             }
         });
@@ -112,7 +122,8 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.new_workout)
         {
-
+            Intent intent = new Intent(MainActivity.this, WorkoutActivity.class);
+            startActivity(intent);
         }
         else if (id == R.id.resume_workout)
         {
