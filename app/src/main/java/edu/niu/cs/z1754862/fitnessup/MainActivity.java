@@ -114,7 +114,6 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.view_data)
         {
-            // Handle the camera action
         }
         else if (id == R.id.manage_goals)
         {
@@ -122,7 +121,7 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.new_workout)
         {
-            Intent intent = new Intent(MainActivity.this, WorkoutActivity.class);
+            Intent intent = new Intent(MainActivity.this, ChooseWorkout.class);
             startActivity(intent);
         }
         else if (id == R.id.resume_workout)
