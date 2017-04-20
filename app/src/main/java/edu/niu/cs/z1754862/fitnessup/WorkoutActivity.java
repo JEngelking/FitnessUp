@@ -1,5 +1,6 @@
 package edu.niu.cs.z1754862.fitnessup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -31,26 +32,30 @@ public class WorkoutActivity extends AppCompatActivity
         gallery = (LinearLayout)findViewById(R.id.gallery);
         workoutDesc = (TextView)findViewById(R.id.workoutDescription);
 
-        fillGallery();
+        Intent intent = getIntent();
+
+        int selectedWorkout = intent.getIntExtra("selectedWorkout", 0);
+
+        fillGallery(selectedWorkout);
     }
 
-    private void fillGallery()
+    private void fillGallery(int selectedWorkout)
     {
         ImageView imageView;
+        int wew = selectedWorkout;
 
-        for (int count = 0; count < WorkoutInfo.description.length; count++)
+        for (int count = 0; count < WorkoutInfo.coreDrill.length; count++)
         {
-            imageView = new ImageButton(this);
+            imageView = new ImageView(this);
 
-            Workout workout = new Workout(WorkoutInfo.description[count], WorkoutInfo.id[count]);
+           // Workout workout = new Workout(selectedWorkout, WorkoutInfo.coreDrill[count]);
 
-            imageView.setContentDescription(workout.getWorkoutDescription());
-
-            imageView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), workout.getWorkoutID(), null));
-
-            workoutDesc.setText(imageView.getContentDescription());
+            imageView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), WorkoutInfo.coreDrill[count], null));
 
             gallery.addView(imageView);
         }
+
+        workoutDesc.setText(WorkoutInfo.description[wew]);
+
     }
 }

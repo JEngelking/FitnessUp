@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(MainActivity.this, WorkoutActivity.class);
+                Intent intent = new Intent(MainActivity.this, ChooseWorkout.class);
                 startActivity(intent);
             }
         });

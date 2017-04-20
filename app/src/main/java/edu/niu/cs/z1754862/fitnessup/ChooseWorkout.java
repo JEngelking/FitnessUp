@@ -32,7 +32,7 @@ public class ChooseWorkout extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
-                String selection = parent.getItemAtPosition(position).toString();
+                int selection = parent.getSelectedItemPosition();
 
                 Intent intent = new Intent (ChooseWorkout.this, WorkoutActivity.class);
                 intent.putExtra("selectedWorkout", selection);
