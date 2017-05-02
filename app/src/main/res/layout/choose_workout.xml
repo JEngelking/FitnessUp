@@ -17,8 +17,17 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinnerExercise"
+        android:id="@+id/spinnerWorkout"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/chooseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinnerWorkout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="94dp"
+        android:text="Choose this workout" />
 
 </RelativeLayout>

@@ -14,34 +14,32 @@ import android.widget.TextView;
 
 public class ChooseWorkout extends AppCompatActivity
 {
-    private Spinner exSpin;
+    private Spinner wkoutSpin;
+    private Button chooseBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose_workout);
-        exSpin = (Spinner) findViewById(R.id.spinnerExercise);
+        wkoutSpin = (Spinner) findViewById(R.id.spinnerWorkout);
+        chooseBtn = (Button) findViewById(R.id.chooseButton);
 
         //adapter for exercises
         ArrayAdapter<CharSequence> adapterEx =
                 ArrayAdapter.createFromResource(this, R.array.workouttitles,
                         android.R.layout.simple_spinner_item);
         adapterEx.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        exSpin.setAdapter(adapterEx);
-        exSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-            {
-                int selection = parent.getSelectedItemPosition();
+        wkoutSpin.setAdapter(adapterEx);
 
+        chooseBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                int selection = wkoutSpin.getSelectedItemPosition();
                 Intent intent = new Intent (ChooseWorkout.this, WorkoutActivity.class);
                 intent.putExtra("selectedWorkout", selection);
                 startActivity(intent);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
     }
