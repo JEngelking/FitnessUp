@@ -92,7 +92,7 @@ public class WorkoutActivity extends AppCompatActivity
 
             int progress = (int) (millisUntilFinished / 1000);
 
-            workoutPB.setMax(2500000);
+            workoutPB.setMax(1800000);
             workoutPB.setProgress(workoutPB.getMax() - progress);
         }
 
