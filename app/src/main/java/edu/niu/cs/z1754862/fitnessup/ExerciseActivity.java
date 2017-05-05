@@ -2,6 +2,7 @@ package edu.niu.cs.z1754862.fitnessup;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
@@ -58,6 +59,12 @@ public class ExerciseActivity extends AppCompatActivity implements AdapterView.O
         saveBtn = (Button) findViewById(R.id.buttonSave);
 
         timeTV = (TextView) findViewById(R.id.textViewElapsedTime);
+
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/GeosansLight.ttf");
+        startBtn.setTypeface(typeface);
+        pauseBtn.setTypeface(typeface);
+        resetBtn.setTypeface(typeface);
+        saveBtn.setTypeface(typeface);
 
         //adapter for exercises
         ArrayAdapter<CharSequence> adapterEx =

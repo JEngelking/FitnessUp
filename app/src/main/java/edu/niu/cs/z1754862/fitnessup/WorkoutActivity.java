@@ -64,6 +64,8 @@ public class WorkoutActivity extends AppCompatActivity
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/GeosansLight.ttf");
         workoutDesc.setTypeface(typeface);
+        startBtn.setTypeface(typeface);
+        finishBtn.setTypeface(typeface);
 
         Intent intent = getIntent();
 

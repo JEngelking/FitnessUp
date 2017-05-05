@@ -1,6 +1,7 @@
 package edu.niu.cs.z1754862.fitnessup;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -23,6 +24,8 @@ public class ChooseWorkout extends AppCompatActivity
         setContentView(R.layout.choose_workout);
         wkoutSpin = (Spinner) findViewById(R.id.spinnerWorkout);
         chooseBtn = (Button) findViewById(R.id.chooseButton);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/GeosansLight.ttf");
+        chooseBtn.setTypeface(typeface);
 
         //adapter for exercises
         ArrayAdapter<CharSequence> adapterEx =
