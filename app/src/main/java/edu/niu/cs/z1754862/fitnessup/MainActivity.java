@@ -1,7 +1,13 @@
+/******
+ * Josh Engelking (z1754862) and Chris Tabone (z1726071)
+ * CSCI 428
+ * Due: 5/4/17
+ */
 package edu.niu.cs.z1754862.fitnessup;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,7 +24,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ActionBarDrawerToggle toggle;
-    Button startExerciseBtn, newWorkoutBtn;
+    Button startExerciseBtn, newWorkoutBtn, resumeExerciseBtn, resumeWorkoutBtn, viewDataBtn, goalsBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +39,15 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
+        //Create typeface from assets
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/GeosansLight.ttf");
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //Connect on-screen elements, specify appearance and add navigation functionality
         startExerciseBtn = (Button) findViewById(R.id.startExerciseButton);
+        startExerciseBtn.setTypeface(typeface);
         startExerciseBtn.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -48,6 +59,7 @@ public class MainActivity extends AppCompatActivity
         });
 
         newWorkoutBtn = (Button)findViewById(R.id.newWorkoutButton);
+        newWorkoutBtn.setTypeface(typeface);
         newWorkoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -56,6 +68,18 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+
+        resumeExerciseBtn = (Button) findViewById(R.id.resumeExerciseButton);
+        resumeExerciseBtn.setTypeface(typeface);
+
+        resumeWorkoutBtn = (Button) findViewById(R.id.resumeWorkoutButton);
+        resumeWorkoutBtn.setTypeface(typeface);
+
+        viewDataBtn = (Button) findViewById(R.id.dataButton);
+        viewDataBtn.setTypeface(typeface);
+
+        goalsBtn = (Button) findViewById(R.id.manageGoalsButton);
+        goalsBtn.setTypeface(typeface);
     }
 
     @Override
@@ -74,6 +98,7 @@ public class MainActivity extends AppCompatActivity
         toggle.onConfigurationChanged(newConfig);
     }
 
+    //Code to toggle nav drawer
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

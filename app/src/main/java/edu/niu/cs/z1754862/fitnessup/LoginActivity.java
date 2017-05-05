@@ -39,11 +39,13 @@ public class LoginActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ActionBar bar = getSupportActionBar();
+        //Hide action bar, as it is currently unneeded
         bar.hide();
 
         SharedPreferences.OnSharedPreferenceChangeListener spChanged = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                //Display to user that preferences were changed
                 Toast.makeText(getApplicationContext(), "PIN added to preferences", Toast.LENGTH_SHORT).show();
             }
         };
@@ -52,6 +54,7 @@ public class LoginActivity extends AppCompatActivity
 
         pinET = (EditText) findViewById(R.id.pinEditText);
 
+        //Create cohesive appearance
         pinExplain = (TextView) findViewById(R.id.pinExplainTextView);
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/GeosansLight.ttf");
         pinExplain.setTypeface(typeface);
@@ -73,22 +76,30 @@ public class LoginActivity extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable s)
             {
+                //When user has entered 6 characters
                 if (pinET.getText().toString().length() == 6)
                 {
+                    //Make sure it fits regex check
                     if (pinET.getText().toString().matches(PIN_MATCH))
                     {
+                        //Get shared preferences
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                         SharedPreferences.Editor editor = preferences.edit();
+                        //Add values to shared preferences
                         editor.putString("pin", pinET.getText().toString());
                         editor.putString("ver", APP_VERSION);
+                        //And save changes
                         editor.commit();
 
+                        //Login and send data to server
                         new PerformAsyncTask().execute();
 
+                        //Move to home screen
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
 
+                    //If what user has entered does not match regex check, reset text field and display error message
                     else
                     {
                         pinET.setText("");
@@ -106,6 +117,7 @@ public class LoginActivity extends AppCompatActivity
         @Override
         protected String doInBackground(Void... params)
         {
+            //Get response from sending data to server
             String response = sendPin();
             return response;
         }
@@ -113,6 +125,7 @@ public class LoginActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(String response)
         {
+            //Display confirmation of usage to user
             Toast toast = Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.TOP, 0, 0);
             toast.show();
@@ -121,6 +134,7 @@ public class LoginActivity extends AppCompatActivity
 
     public String sendPin()
     {
+        //Form connection
         HttpURLConnection connection;
         String response = new String();
 
@@ -141,6 +155,7 @@ public class LoginActivity extends AppCompatActivity
 
             Scanner inStream = new Scanner(connection.getInputStream());
 
+            //Create response string from Scanner
             while (inStream.hasNextLine())
             {
                 response += (inStream.nextLine());

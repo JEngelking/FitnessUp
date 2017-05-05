@@ -1,7 +1,7 @@
 package edu.niu.cs.z1754862.fitnessup;
 
 /**
- * Created by Josh on 4/12/2017.
+ * Custom workout class to get IDs and descriptions of different workouts, for programatically loading appropriate information
  */
 
 public class Workout

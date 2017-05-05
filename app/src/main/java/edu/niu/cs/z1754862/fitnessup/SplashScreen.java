@@ -34,15 +34,19 @@ public class SplashScreen extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        //Hide action bar
         ActionBar bar = getSupportActionBar();
-        if (bar != null)
-        {
+        if (bar != null) {
             bar.hide();
         }
+
+        //Set typeface
         titleTV = (TextView) findViewById(R.id.titleView);
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/GeosansLight.ttf");
         titleTV.setTypeface(typeface);
 
+        //Delay moving to home screen
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -51,14 +55,17 @@ public class SplashScreen extends AppCompatActivity {
             }
         }, SPLASH_DISPLAY_LENGTH);
 
+        //Get shared preferences
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
+        //And check if pin is already there, meaning user has previously logged in and will not need to again
         if (preferences.contains("pin"))
         {
             Intent intent = new Intent(SplashScreen.this, MainActivity.class);
             startActivity(intent);
         }
 
+        //Otherwise, have them login
         else
         {
             Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
@@ -73,6 +80,7 @@ public class SplashScreen extends AppCompatActivity {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
+        //Check if pin already exists, and send data usage
         if (preferences.contains("pin"))
         {
             new PerformAsyncTask().execute();
@@ -84,6 +92,7 @@ public class SplashScreen extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... params)
         {
+            //Get response from server
             String response = sendUsage();
             return response;
         }
@@ -91,6 +100,7 @@ public class SplashScreen extends AppCompatActivity {
         @Override
         protected void onPostExecute(String response)
         {
+            //Display server confirmation to user in Toast
             Toast toast = Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.TOP, 0, 0);
             toast.show();
@@ -99,6 +109,8 @@ public class SplashScreen extends AppCompatActivity {
 
     public String sendUsage()
     {
+
+        //Form connection
         HttpURLConnection connection;
         String response = new String();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -107,6 +119,7 @@ public class SplashScreen extends AppCompatActivity {
 
         if (preferences.contains("pin"))
         {
+            //Get pin and set default
             pin = preferences.getString("pin", "def123");
         }
 
@@ -117,6 +130,7 @@ public class SplashScreen extends AppCompatActivity {
 
         try
         {
+            //Connect to server
             URL url = new URL("http://students.cs.niu.edu/~exerciseapp/postusagedata.php");
             connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);//set http method to post
@@ -132,6 +146,7 @@ public class SplashScreen extends AppCompatActivity {
 
             Scanner inStream = new Scanner(connection.getInputStream());
 
+            //Form response from Scanner
             while (inStream.hasNextLine())
             {
                 response += (inStream.nextLine());

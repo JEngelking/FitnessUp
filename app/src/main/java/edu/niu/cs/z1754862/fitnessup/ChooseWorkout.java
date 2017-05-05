@@ -27,13 +27,14 @@ public class ChooseWorkout extends AppCompatActivity
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/GeosansLight.ttf");
         chooseBtn.setTypeface(typeface);
 
-        //adapter for exercises
+        //adapter for exercises, populate with appropriate strings and specify style
         ArrayAdapter<CharSequence> adapterEx =
                 ArrayAdapter.createFromResource(this, R.array.workouttitles,
                         android.R.layout.simple_spinner_item);
         adapterEx.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         wkoutSpin.setAdapter(adapterEx);
 
+        //Upon clicking the submit button, get the selected item's index, and pass this value to the WorkoutActivity which will load the specific workout information
         chooseBtn.setOnClickListener(new View.OnClickListener()
         {
             @Override

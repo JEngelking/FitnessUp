@@ -56,12 +56,14 @@ public class WorkoutActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.workout_activity);
 
+        //Connect on-screen elements
         gallery = (LinearLayout)findViewById(R.id.gallery);
         workoutDesc = (TextView)findViewById(R.id.workoutDescription);
         startBtn = (Button) findViewById(R.id.workoutStartButton);
         finishBtn = (Button) findViewById(R.id.finishButton);
         workoutPB = (ProgressBar) findViewById(R.id.workoutProgress);
 
+        //Apply new typeface to on-screen elements
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/GeosansLight.ttf");
         workoutDesc.setTypeface(typeface);
         startBtn.setTypeface(typeface);
@@ -69,10 +71,13 @@ public class WorkoutActivity extends AppCompatActivity
 
         Intent intent = getIntent();
 
+        //Get selected from previous choose screen
         selectedWorkout = intent.getIntExtra("selectedWorkout", 0);
 
+        //Fill gallery full of images to assist with current workout
         fillGallery(selectedWorkout);
 
+        //Complete background process upon clicking finish button
         finishBtn.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -83,10 +88,13 @@ public class WorkoutActivity extends AppCompatActivity
         });
     }
 
+    //Pass current view into function to be used as onClick for the start button
+    //Switches text and begins a countdown timer starting at a half an hour
     public void beginWorkoutClick(View v)
     {
         if (startBtn.getText().equals("Start"))
         {
+            //Tick every second
             countDownTimer = new MyCountDownTimer(1800000, 1000);
             startBtn.setText("Pause");
             countDownTimer.start();
@@ -94,17 +102,21 @@ public class WorkoutActivity extends AppCompatActivity
 
         else if (startBtn.getText().equals("Pause"))
         {
+            //Switch text appropriately
             startBtn.setText("Resume");
+            //Pause timer
             countDownTimer.cancel();
         }
 
         else if (startBtn.getText().equals("Resume"))
         {
             startBtn.setText("Pause");
+            //Begin timer again once un-paused
             countDownTimer.onResume();
         }
     }
 
+    //Custom timer class coded to include extra methods onResume and onFinish
     public class MyCountDownTimer extends CountDownTimer
     {
 
@@ -120,14 +132,17 @@ public class WorkoutActivity extends AppCompatActivity
 
             int progress = (int) (millisUntilFinished / 1000);
 
+            //Update total time exercised
             timeExercised = (1800000 - timeRemaining)/6000;
 
+            //Update progressBar
             workoutPB.setMax(1800000);
             workoutPB.setProgress(workoutPB.getMax() - progress);
         }
 
         public void onResume()
         {
+            //If timer is paused and then started, restart and create a new timer with a time reflective of how long the current workout has gone on for
             countDownTimer = new MyCountDownTimer(timeRemaining, 1000);
             countDownTimer.start();
         }
@@ -139,6 +154,7 @@ public class WorkoutActivity extends AppCompatActivity
         }
     }
 
+    //Pass selectedWorkout variable gotten from being passed from previous activity into function to fill the horizontalScrollView
     private void fillGallery(int selectedWorkout)
     {
         ImageView imageView;
@@ -148,13 +164,17 @@ public class WorkoutActivity extends AppCompatActivity
         {
             for (int count = 0; count < WorkoutInfo.coreDrill.length; count++)
             {
+                //Dynamically create new imageView
                 imageView = new ImageView(this);
 
+                //set drawable resource equal to image pointed to in the coreDrill array in the WorkoutInfo class, using current index in for loop
                 imageView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), WorkoutInfo.coreDrill[count], null));
 
+                //Add this image to HorizontalScrollView
                 gallery.addView(imageView);
             }
 
+            //Set appropriate workout description in the textView
             workoutDesc.setText(WorkoutInfo.description[wew]);
         }
 
@@ -162,6 +182,7 @@ public class WorkoutActivity extends AppCompatActivity
         {
             imageView = new ImageView(this);
 
+            //If selectedWorkout does not have images associated with it, load stock picture
             imageView.setImageResource(R.drawable.stock);
 
             gallery.addView(imageView);
@@ -175,6 +196,7 @@ public class WorkoutActivity extends AppCompatActivity
         @Override
         protected String doInBackground(Void... params)
         {
+            //Send usage to servers
             String response = sendPin();
             return response;
         }
@@ -182,10 +204,12 @@ public class WorkoutActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(String response)
         {
+            //Display response from server, retrieved from sendPin
             Toast toast = Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.TOP, 0, 0);
             toast.show();
 
+            //Return to the home screen after completion
             Intent returnToMain = new Intent(WorkoutActivity.this, MainActivity.class);
             startActivity(returnToMain);
         }
@@ -193,15 +217,19 @@ public class WorkoutActivity extends AppCompatActivity
 
     public String sendPin()
     {
+        //Form connection and get current date to send to server
         HttpURLConnection connection;
         String response = new String();
         String currentDT = DateFormat.getDateTimeInstance().format(new Date());
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
+        //As long as preferences contains user's pin and app version
         if (preferences.contains("pin") && preferences.contains("ver"))
         {
-            try {
+            try
+            {
+                //Set proper URL
                 URL url = new URL("http://students.cs.niu.edu/~exerciseapp/postdata.php");
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setDoOutput(true);//set http method to post
@@ -223,6 +251,7 @@ public class WorkoutActivity extends AppCompatActivity
 
                 Scanner inStream = new Scanner(connection.getInputStream());
 
+                //Create response string from Scanner
                 while (inStream.hasNextLine())
                 {
                     response += (inStream.nextLine());
